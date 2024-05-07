@@ -32,15 +32,19 @@ class OnBoard extends StatelessWidget {
                         TextSpan(text: 'R', style: TextStyle(color: redbase)),
                         TextSpan(text: 'N'),
                       ])),
-                  SizedBox(height: 16,),
+                  SizedBox(
+                    height: 16,
+                  ),
                   Image(
                     image: AssetImage(
-                      'image/book.png',
+                      'image/onboard/book.png',
                     ),
                     height: 266,
                     width: 266,
                   ),
-                  SizedBox(height: 27,),
+                  SizedBox(
+                    height: 27,
+                  ),
                   TextButton(
                       onPressed: () {
                         Navigator.push(context,
