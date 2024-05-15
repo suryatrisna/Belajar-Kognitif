@@ -131,6 +131,48 @@ flutter:
     - audio/huruf/huruf-Y.mp3
     - audio/huruf/huruf-Z.mp3
 
+    - image/angka/Angka-0.png
+    - image/angka/Angka-1.png
+    - image/angka/Angka-2.png
+    - image/angka/Angka-3.png
+    - image/angka/Angka-4.png
+    - image/angka/Angka-5.png
+    - image/angka/Angka-6.png
+    - image/angka/Angka-7.png
+    - image/angka/Angka-8.png
+    - image/angka/Angka-9.png
+    - image/angka/Angka-10.png
+
+    - audio/angka/angka-0.mp3
+    - audio/angka/angka-1.mp3
+    - audio/angka/angka-2.mp3
+    - audio/angka/angka-3.mp3
+    - audio/angka/angka-4.mp3
+    - audio/angka/angka-5.mp3
+    - audio/angka/angka-6.mp3
+    - audio/angka/angka-7.mp3
+    - audio/angka/angka-8.mp3
+    - audio/angka/angka-9.mp3
+    - audio/angka/angka-10.mp3
+
+    - image/warna/warna-merah.png
+    - image/warna/warna-jingga.png
+    - image/warna/warna-kuning.png
+    - image/warna/warna-hijau.png
+    - image/warna/warna-biru.png
+    - image/warna/warna-nila.png
+    - image/warna/warna-ungu.png
+    - image/warna/warna-putih.png
+
+    - audio/warna/warna-merah.mp3
+    - audio/warna/warna-jingga.mp3
+    - audio/warna/warna-kuning.mp3
+    - audio/warna/warna-hijau.mp3
+    - audio/warna/warna-biru.mp3
+    - audio/warna/warna-nila.mp3
+    - audio/warna/warna-ungu.mp3
+    - audio/warna/warna-putih.mp3
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

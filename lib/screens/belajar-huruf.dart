@@ -99,6 +99,7 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset:false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -127,13 +128,15 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Container(height: 125,child:
               Text(
-                'Pengenalan\nHuruf',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                  color: Colors.black,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
+                  'Pengenalan\nHuruf',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                    color: Colors.black,
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Expanded(
@@ -156,14 +159,14 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
                             height: 200,
                           ),
                           SizedBox(
-                            height: 94.0,
+                            height: 50.0,
                           ),
                           Text(
                             "Huruf " +
                                 String.fromCharCode('A'.codeUnitAt(0) + index),
                             style: GoogleFonts.montserrat(
                               color: Colors.black,
-                              fontSize: 40,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -179,8 +182,8 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
                               },
                               icon: Image.asset(
                                 'image/icon/volume-1.png',
-                                width: 65,
-                                height: 47,
+                                width: 50,
+                                height: 40,
                               )),
                         ],
                       ),
@@ -189,7 +192,7 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
                 ),
               ),
               Container(
-                height: 200,
+                height: 100,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -205,8 +208,8 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
                           },
                           icon: Image.asset(
                             'image/icon/previous.png',
-                            width: 75,
-                            height: 75,
+                            width: 70,
+                            height: 70,
                           )),
                       Spacer(
                         flex: 1,
@@ -221,8 +224,8 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
                           },
                           icon: Image.asset(
                             'image/icon/next.png',
-                            width: 75,
-                            height: 75,
+                            width: 70,
+                            height: 70,
                           )),
                     ],
                   ),
