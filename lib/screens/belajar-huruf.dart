@@ -5,22 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-void main() {
-  runApp(const BelajarHuruf());
-}
-
 class BelajarHuruf extends StatelessWidget {
-  const BelajarHuruf({super.key});
+  final AudioPlayer backgroundAudioPlayer;
+
+  const BelajarHuruf({Key? key, required this.backgroundAudioPlayer})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: BelajarHurufPage());
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: BelajarHurufPage(backgroundAudioPlayer: backgroundAudioPlayer));
   }
 }
 
 class BelajarHurufPage extends StatefulWidget {
-  const BelajarHurufPage({super.key});
+  final AudioPlayer backgroundAudioPlayer; // Tambahkan atribut
+
+  const BelajarHurufPage({Key? key, required this.backgroundAudioPlayer})
+      : super(key: key);
 
   @override
   State<BelajarHurufPage> createState() => _BelajarHurufPage();
@@ -30,13 +33,8 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
   PageController _pageController = PageController(initialPage: 0);
   int _currentPageIndex = 0;
   AudioPlayer _audioPlayer = AudioPlayer();
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _audioPlayer.dispose();
-    super.dispose();
-  }
+  bool _isBackgroundAudioPlaying =
+      false; // Untuk menyimpan status pemutaran latar belakang
 
   final List<String> hurufImage = [
     'image/huruf/letter-a.png',
@@ -97,9 +95,48 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _isBackgroundAudioPlaying = true; // Set status pemutaran latar belakang
+    _resumeBackgroundAudio();
+  }
+
+  void _pauseBackgroundAudio() async {
+    if (_isBackgroundAudioPlaying) {
+      await widget.backgroundAudioPlayer.pause(); // Pause latar belakang
+      _isBackgroundAudioPlaying = false; // Perbarui status pemutaran
+    }
+  }
+
+  void _resumeBackgroundAudio() async {
+    if (!_isBackgroundAudioPlaying) {
+      await widget.backgroundAudioPlayer.resume(); // Lanjutkan latar belakang
+      _isBackgroundAudioPlaying = true; // Perbarui status pemutaran
+    }
+  }
+
+  void _playHurufAudio(int index) async {
+    _pauseBackgroundAudio(); // Pause latar belakang saat memainkan suara angka
+    AudioCache.instance = AudioCache(prefix: '');
+    final player = AudioPlayer();
+    await player.play(AssetSource(hurufAudio[index]));
+    await player.onPlayerComplete.first; // Tunggu sampai suara angka selesai
+    _resumeBackgroundAudio(); // Lanjutkan latar belakang setelah suara angka selesai
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset:false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -128,8 +165,9 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(height: 125,child:
-              Text(
+              Container(
+                height: 125,
+                child: Text(
                   'Pengenalan\nHuruf',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
@@ -175,10 +213,7 @@ class _BelajarHurufPage extends State<BelajarHurufPage> {
                           ),
                           IconButton(
                               onPressed: () async {
-                                AudioCache.instance = AudioCache(prefix: '');
-                                final player = AudioPlayer();
-                                await player
-                                    .play(AssetSource(hurufAudio[index]));
+                                _playHurufAudio(index);
                               },
                               icon: Image.asset(
                                 'image/icon/volume-1.png',

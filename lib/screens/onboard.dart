@@ -1,11 +1,17 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:belajarkognitif/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:belajarkognitif/global_variabel.dart';
 
-class OnBoard extends StatelessWidget {
+class OnBoard extends StatefulWidget {
   const OnBoard({super.key});
 
+  @override
+  _OnBoardState createState() => _OnBoardState();
+}
+
+class _OnBoardState extends State<OnBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +53,7 @@ class OnBoard extends StatelessWidget {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(context,
+                        Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) => Home()));
                       },
                       child: Container(
@@ -71,5 +77,3 @@ class OnBoard extends StatelessWidget {
     );
   }
 }
-
-//Text("PLAY\nAND\nLEARN",style: TextStyle(fontFamily: 'SuperCosmic',fontSize: 64, ),)

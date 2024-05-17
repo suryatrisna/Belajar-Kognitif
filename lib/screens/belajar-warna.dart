@@ -5,22 +5,25 @@ import 'package:google_fonts/google_fonts.dart';
 import '../global_variabel.dart';
 import 'home.dart';
 
-void main() {
-  runApp(const BelajarWarna());
-}
-
 class BelajarWarna extends StatelessWidget {
-  const BelajarWarna({super.key});
+  final AudioPlayer backgroundAudioPlayer;
+
+  const BelajarWarna({Key? key, required this.backgroundAudioPlayer})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: BelajarWarnaPage());
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: BelajarWarnaPage(backgroundAudioPlayer: backgroundAudioPlayer));
   }
 }
 
 class BelajarWarnaPage extends StatefulWidget {
-  const BelajarWarnaPage({super.key});
+  final AudioPlayer backgroundAudioPlayer; // Tambahkan atribut
+
+  const BelajarWarnaPage({Key? key, required this.backgroundAudioPlayer})
+      : super(key: key);
 
   @override
   State<BelajarWarnaPage> createState() => _BelajarWarnaPage();
@@ -30,10 +33,44 @@ class _BelajarWarnaPage extends State<BelajarWarnaPage> {
   PageController _pageController = PageController(initialPage: 0);
   int _currentPageIndex = 0;
   AudioPlayer _audioPlayer = AudioPlayer();
+  bool _isBackgroundAudioPlaying =
+      false; // Untuk menyimpan status pemutaran latar belakang
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _isBackgroundAudioPlaying = true; // Set status pemutaran latar belakang
+    _resumeBackgroundAudio();
+  }
+
+  void _pauseBackgroundAudio() async {
+    if (_isBackgroundAudioPlaying) {
+      await widget.backgroundAudioPlayer.pause(); // Pause latar belakang
+      _isBackgroundAudioPlaying = false; // Perbarui status pemutaran
+    }
+  }
+
+  void _resumeBackgroundAudio() async {
+    if (!_isBackgroundAudioPlaying) {
+      await widget.backgroundAudioPlayer.resume(); // Lanjutkan latar belakang
+      _isBackgroundAudioPlaying = true; // Perbarui status pemutaran
+    }
+  }
+
+  void _playWarnaAudio(int index) async {
+    _pauseBackgroundAudio(); // Pause latar belakang saat memainkan suara angka
+    AudioCache.instance = AudioCache(prefix: '');
+    final player = AudioPlayer();
+    await player.play(AssetSource(warnaAudio[index]));
+    await player.onPlayerComplete.first; // Tunggu sampai suara angka selesai
+    _resumeBackgroundAudio(); // Lanjutkan latar belakang setelah suara angka selesai
+  }
 
   @override
   void dispose() {
     // TODO: implement dispose
+
     _audioPlayer.dispose();
     super.dispose();
   }
@@ -138,7 +175,9 @@ class _BelajarWarnaPage extends State<BelajarWarnaPage> {
                             height: 50.0,
                           ),
                           Text(
-                            "Warna " + colorNames[index], // Display color name from the list
+                            "Warna " +
+                                colorNames[
+                                    index], // Display color name from the list
                             style: GoogleFonts.montserrat(
                               color: Colors.black,
                               fontSize: 30,
@@ -150,10 +189,7 @@ class _BelajarWarnaPage extends State<BelajarWarnaPage> {
                           ),
                           IconButton(
                               onPressed: () async {
-                                AudioCache.instance = AudioCache(prefix: '');
-                                final player = AudioPlayer();
-                                await player
-                                    .play(AssetSource(warnaAudio[index]));
+                                _playWarnaAudio(index);
                               },
                               icon: Image.asset(
                                 'image/icon/volume-1.png',

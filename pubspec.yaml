@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.0.0
   audioplayers: ^6.0.0
+  confetti: ^0.7.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -172,6 +174,13 @@ flutter:
     - audio/warna/warna-nila.mp3
     - audio/warna/warna-ungu.mp3
     - audio/warna/warna-putih.mp3
+
+    - image/game/sad-face.png
+    - audio/game/winning-quiz.wav
+    - audio/game/losing-quiz.wav
+    - audio/home/background-1.mp3
+    - audio/home/background-2.mp3
+    - audio/onboard/onboard.wav
 
   #   - images/a_dot_ham.jpeg
 

@@ -5,23 +5,26 @@ import 'package:google_fonts/google_fonts.dart';
 import '../global_variabel.dart';
 import 'home.dart';
 
-void main() {
-  runApp(const BelajarAngka());
-}
-
 class BelajarAngka extends StatelessWidget {
-  const BelajarAngka({super.key});
+  final AudioPlayer backgroundAudioPlayer;
+
+  const BelajarAngka({Key? key, required this.backgroundAudioPlayer})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false, home: BelajarAngkaPage(
-    ));
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: BelajarAngkaPage(backgroundAudioPlayer: backgroundAudioPlayer),
+    );
   }
 }
 
 class BelajarAngkaPage extends StatefulWidget {
-  const BelajarAngkaPage({super.key});
+  final AudioPlayer backgroundAudioPlayer; // Tambahkan atribut
+
+  const BelajarAngkaPage({Key? key, required this.backgroundAudioPlayer})
+      : super(key: key); // Tambahkan konstruktor
 
   @override
   State<BelajarAngkaPage> createState() => _BelajarAngkaPage();
@@ -31,10 +34,42 @@ class _BelajarAngkaPage extends State<BelajarAngkaPage> {
   PageController _pageController = PageController(initialPage: 0);
   int _currentPageIndex = 0;
   AudioPlayer _audioPlayer = AudioPlayer();
+  bool _isBackgroundAudioPlaying =
+      false; // Untuk menyimpan status pemutaran latar belakang
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _isBackgroundAudioPlaying = true; // Set status pemutaran latar belakang
+    _resumeBackgroundAudio();
+  }
+
+  void _pauseBackgroundAudio() async {
+    if (_isBackgroundAudioPlaying) {
+      await widget.backgroundAudioPlayer.pause(); // Pause latar belakang
+      _isBackgroundAudioPlaying = false; // Perbarui status pemutaran
+    }
+  }
+
+  void _resumeBackgroundAudio() async {
+    if (!_isBackgroundAudioPlaying) {
+      await widget.backgroundAudioPlayer.resume(); // Lanjutkan latar belakang
+      _isBackgroundAudioPlaying = true; // Perbarui status pemutaran
+    }
+  }
+
+  void _playAngkaAudio(int index) async {
+    _pauseBackgroundAudio(); // Pause latar belakang saat memainkan suara angka
+    AudioCache.instance = AudioCache(prefix: '');
+    final player = AudioPlayer();
+    await player.play(AssetSource(angkaAudio[index]));
+    await player.onPlayerComplete.first; // Tunggu sampai suara angka selesai
+    _resumeBackgroundAudio(); // Lanjutkan latar belakang setelah suara angka selesai
+  }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _audioPlayer.dispose();
     super.dispose();
   }
@@ -146,10 +181,11 @@ class _BelajarAngkaPage extends State<BelajarAngkaPage> {
                           ),
                           IconButton(
                               onPressed: () async {
-                                AudioCache.instance = AudioCache(prefix: '');
-                                final player = AudioPlayer();
-                                await player
-                                    .play(AssetSource(angkaAudio[index]));
+                                // AudioCache.instance = AudioCache(prefix: '');
+                                // final player = AudioPlayer();
+                                // await player
+                                //     .play(AssetSource(angkaAudio[index]));
+                                _playAngkaAudio(index);
                               },
                               icon: Image.asset(
                                 'image/icon/volume-1.png',

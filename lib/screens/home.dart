@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:belajarkognitif/global_variabel.dart';
 import 'package:belajarkognitif/screens/belajar-angka.dart';
 import 'package:belajarkognitif/screens/belajar-huruf.dart';
@@ -6,10 +7,6 @@ import 'package:belajarkognitif/screens/belajar-warna.dart';
 import 'package:belajarkognitif/screens/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const Home());
-}
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -23,7 +20,14 @@ class Home extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  MyHomePage({super.key});
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final List<String> menuImages = [
     'image/home/menu_1.png',
     'image/home/menu_2.png',
@@ -44,15 +48,43 @@ class MyHomePage extends StatelessWidget {
     'image/icon/icon_4.png',
   ];
 
-// Define the screens corresponding to each menu item
   final List<Widget Function(BuildContext)> menuScreenBuilders = [
-    (BuildContext context) => BelajarHuruf(),
-    (BuildContext context) => BelajarAngka(),
-    (BuildContext context) => BelajarWarna(),
-    (BuildContext context) => Game(),
+    (BuildContext context) => BelajarHuruf(
+          backgroundAudioPlayer: _audioPlayer,
+        ),
+    (BuildContext context) => BelajarAngka(
+          backgroundAudioPlayer: _audioPlayer,
+        ),
+    (BuildContext context) => BelajarWarna(
+          backgroundAudioPlayer: _audioPlayer,
+        ),
+    (BuildContext context) => GamePage(
+          backgroundAudioPlayer: _audioPlayer,
+        ),
   ];
 
-  MyHomePage({super.key});
+  static final AudioPlayer _audioPlayer = AudioPlayer();
+  static bool isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!isPlaying) {
+      _playBackgroundMusic();
+      isPlaying = true;
+    }
+  }
+
+  void _playBackgroundMusic() async {
+    AudioCache.instance = AudioCache(prefix: '');
+    _audioPlayer.setReleaseMode(ReleaseMode.loop);
+    await _audioPlayer.play(AssetSource('audio/home/background-1.mp3'));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +174,6 @@ class MyHomePage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  // Navigate to the corresponding screen
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -168,7 +199,6 @@ class MyHomePage extends StatelessWidget {
                               children: [
                                 Image.asset(
                                   menuImages[index],
-                                  // Mengambil path gambar sesuai dengan index card
                                   width: 160,
                                   height: 150,
                                 ),
@@ -188,7 +218,6 @@ class MyHomePage extends StatelessWidget {
                                 children: [
                                   Text(
                                     menuTitles[index],
-                                    // Menggunakan judul sesuai dengan index card
                                     style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),

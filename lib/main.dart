@@ -1,3 +1,4 @@
+import 'package:belajarkognitif/screens/home.dart';
 import 'package:belajarkognitif/screens/onboard.dart';
 import 'package:flutter/material.dart';
 
