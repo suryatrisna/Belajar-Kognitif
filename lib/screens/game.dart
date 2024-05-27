@@ -41,16 +41,39 @@ class _GamePage extends State<GamePage> {
   AudioPlayer _audioPlayer = AudioPlayer();
 
   final List<Quiz> _quizData = [
-    Quiz(imageUrl: 'image/angka/Angka-0.png', answer: 'Angka 0'),
-    Quiz(imageUrl: 'image/huruf/letter-a.png', answer: 'Huruf A'),
+
+
     Quiz(imageUrl: 'image/warna/warna-biru.png', answer: 'Warna Biru'),
     Quiz(imageUrl: 'image/warna/warna-merah.png', answer: 'Warna Merah'),
-    Quiz(imageUrl: 'image/angka/Angka-1.png', answer: 'Angka 1'),
-    Quiz(imageUrl: 'image/huruf/letter-b.png', answer: 'Huruf B'),
     Quiz(imageUrl: 'image/warna/warna-hijau.png', answer: 'Warna Hijau'),
     Quiz(imageUrl: 'image/warna/warna-kuning.png', answer: 'Warna Kuning'),
+    Quiz(imageUrl: 'image/warna/warna-putih.png', answer: 'Warna Putih'),
+    Quiz(imageUrl: 'image/warna/warna-nila.png', answer: 'Warna Nila'),
+    Quiz(imageUrl: 'image/warna/warna-ungu.png', answer: 'Warna Ungu'),
+    Quiz(imageUrl: 'image/warna/warna-jingga.png', answer: 'Warna Jingga'),
+    Quiz(imageUrl: 'image/angka/Angka-0.png', answer: 'Angka 0'),
+    Quiz(imageUrl: 'image/angka/Angka-1.png', answer: 'Angka 1'),
     Quiz(imageUrl: 'image/angka/Angka-2.png', answer: 'Angka 2'),
+    Quiz(imageUrl: 'image/angka/Angka-3.png', answer: 'Angka 3'),
+    Quiz(imageUrl: 'image/angka/Angka-4.png', answer: 'Angka 4'),
+    Quiz(imageUrl: 'image/angka/Angka-5.png', answer: 'Angka 5'),
+    Quiz(imageUrl: 'image/angka/Angka-6.png', answer: 'Angka 6'),
+    Quiz(imageUrl: 'image/angka/Angka-7.png', answer: 'Angka 7'),
+    Quiz(imageUrl: 'image/angka/Angka-8.png', answer: 'Angka 8'),
+    Quiz(imageUrl: 'image/angka/Angka-9.png', answer: 'Angka 9'),
+    Quiz(imageUrl: 'image/angka/Angka-10.png', answer: 'Angka 10'),
+    Quiz(imageUrl: 'image/huruf/letter-a.png', answer: 'Huruf A'),
+    Quiz(imageUrl: 'image/huruf/letter-b.png', answer: 'Huruf B'),
     Quiz(imageUrl: 'image/huruf/letter-c.png', answer: 'Huruf C'),
+    Quiz(imageUrl: 'image/huruf/letter-d.png', answer: 'Huruf D'),
+    Quiz(imageUrl: 'image/huruf/letter-e.png', answer: 'Huruf E'),
+    Quiz(imageUrl: 'image/huruf/letter-f.png', answer: 'Huruf F'),
+    Quiz(imageUrl: 'image/huruf/letter-g.png', answer: 'Huruf G'),
+    Quiz(imageUrl: 'image/huruf/letter-h.png', answer: 'Huruf H'),
+    Quiz(imageUrl: 'image/huruf/letter-i.png', answer: 'Huruf I'),
+    Quiz(imageUrl: 'image/huruf/letter-j.png', answer: 'Huruf J'),
+    Quiz(imageUrl: 'image/huruf/letter-k.png', answer: 'Huruf K'),
+
   ];
 
   late List<Quiz> _selectedQuizData;

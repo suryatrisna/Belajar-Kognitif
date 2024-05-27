@@ -184,12 +184,12 @@ class _QuizMatcherState extends State<QuizMatcher>
             p2 = details.globalPosition;
             List<Rect> questionsOffset = List.generate(
               widget.questions.length,
-              (i) => widgetDataQuestions[i].key.globalPaintBounds!,
+                  (i) => widgetDataQuestions[i].key.globalPaintBounds!,
             );
 
             List<Rect> answersOffset = List.generate(
               widget.answers.length,
-              (i) => widgetDataAnswer[i].key.globalPaintBounds!,
+                  (i) => widgetDataAnswer[i].key.globalPaintBounds!,
             );
 
             RenderBox box = context.findRenderObject() as RenderBox;
@@ -197,8 +197,8 @@ class _QuizMatcherState extends State<QuizMatcher>
 
             bool isInOffset(List<Rect> offsets) {
               return offsets.any(
-                (offset) =>
-                    p2.dx >= offset.left &&
+                    (offset) =>
+                p2.dx >= offset.left &&
                     p2.dx <= offset.right &&
                     p2.dy >= offset.top &&
                     p2.dy <= offset.bottom,
@@ -215,19 +215,19 @@ class _QuizMatcherState extends State<QuizMatcher>
 
             List<Rect> questionsOffset = List.generate(
               widget.questions.length,
-              (i) => widgetDataQuestions[i].key.globalPaintBounds!,
+                  (i) => widgetDataQuestions[i].key.globalPaintBounds!,
             );
 
             List<Rect> answersOffset = List.generate(
               widget.answers.length,
-              (i) => widgetDataAnswer[i].key.globalPaintBounds!,
+                  (i) => widgetDataAnswer[i].key.globalPaintBounds!,
             );
 
             for (int i = 0; i < questionsOffset.length; i++) {
               if (listLine[i].panStartOffset == Offset.zero &&
                   questionsOffset[i].contains(p1)) {
                 bool answerSelected =
-                    false; // Flag to track if an answer is selected
+                false; // Flag to track if an answer is selected
                 for (int j = 0; j < answersOffset.length; j++) {
                   if (answersOffset[j].contains(p2)) {
                     if (listLine[j].ansSelection == false) {
@@ -400,16 +400,16 @@ class _QuizMatcherState extends State<QuizMatcher>
                   Text(
                     allQuestionsAnswered
                         ? (score == widget.questions.length
-                            ? "Berhasil"
-                            : "Gagal")
+                        ? "Berhasil"
+                        : "Gagal")
                         : "", // Tampilkan pesan sesuai dengan kondisi
                     style: TextStyle(
                       fontFamily: 'SuperCosmic',
                       fontSize: 45,
                       color: allQuestionsAnswered
                           ? (score == widget.questions.length
-                              ? Colors.green
-                              : redbase)
+                          ? Colors.green
+                          : redbase)
                           : Colors.transparent, // Sesuaikan warna teks
                     ),
                   ),
@@ -426,7 +426,7 @@ class _QuizMatcherState extends State<QuizMatcher>
                             p2: listLine[i].panEndOffset,
                             color: listLine[i].colorOfPoint,
                             progress:
-                                animationIndex == i + 1 ? controller.value : 1),
+                            animationIndex == i + 1 ? controller.value : 1),
                       ),
                   ],
                 ),
